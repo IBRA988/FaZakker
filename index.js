@@ -187,7 +187,8 @@ function getFullTimeForPray(time, pray, dateofprayAPI) {
   dateToCompare.setSeconds(59);
   let current = new Date();
 
-  if (pray == "fajr" && current <= dateToCompare) {
+  
+  if (pray == "Fajr" && current <= dateToCompare) {
     let oneDay = 86400000;
     let tomorrow = new Date(prayerDate.getTime() + oneDay);
     prayerDate = tomorrow;
