@@ -181,13 +181,17 @@ function getFullTimeForPray(time, pray, dateofprayAPI) {
     m,
     0
   );
+  let dateToCompare = new Date();
+  dateToCompare.setHours(23);
+  dateToCompare.setMinutes(59);
+  dateToCompare.setSeconds(59);
   let current = new Date();
 
-  // if (pray == "fajr" && prayerDate.getDate() == current.getDate()) {
-  //   let oneDay = 86400000;
-  //   let tomorrow = new Date(prayerDate.getTime() + oneDay);
-  //   prayerDate = tomorrow;
-  // }
+  if (pray == "fajr" && current <= dateToCompare) {
+    let oneDay = 86400000;
+    let tomorrow = new Date(prayerDate.getTime() + oneDay);
+    prayerDate = tomorrow;
+  }
   updateCountdown(pray);
 }
 
