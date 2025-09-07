@@ -180,7 +180,7 @@ a:hover{
     text-align: center;
     border-radius: 10px;
     font-size: 20px;
-    transition: 0.4s;
+    transition: 0.5s; 
   }
   .countdown:hover {
     cursor: pointer;
