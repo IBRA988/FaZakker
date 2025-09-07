@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+* {
+  font-family: "Almarai", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+  /* background-image: linear-gradient(rgb(67, 81, 238), transparent); */
+  display: flex;
+}
+#logo{
+  width: 30px;
+  height: 30px;
+  transition: 0.4s;
+}
+a {
+  text-decoration: none;
+  display: block;
+  gap: 20px;
+  align-items: center;
+  padding: 5px;
+  transition: 0.5s;
+  width: 88%;
+  margin-right: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+a:hover{
+  background-color: rgba(255, 255, 255, 0.671);
+  border-radius: 8px;
+  p,i{
+    color: black;
+  }
+}
+.sidebar {
+  background: radial-gradient(circle at top, #3b5d6c, #203a43, #2c5364);
+  min-height: 100vh;
+  min-height: 100vh;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  overflow: hidden;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius:20px ;
+  transition: 0.5s;
+}
+.sidebar:hover{
+  width: 188px;
+  #logo{
+  width: 100px;
+  height: 100px;
+  }
+}
+#loader {
+  width: 44.8px;
+  height: 44.8px;
+  color: #2c5364;
+  position: absolute;
+  inset: 0; /* top:0; left:0; right:0; bottom:0; */
+  margin: auto;
+  background: radial-gradient(11.2px, currentColor 94%, #0000);
+}
+
+#loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(10.08px at bottom right, #0000 94%, currentColor)
+      top left,
+    radial-gradient(10.08px at bottom left, #0000 94%, currentColor) top right,
+    radial-gradient(10.08px at top right, #0000 94%, currentColor) bottom left,
+    radial-gradient(10.08px at top left, #0000 94%, currentColor) bottom right;
+  background-size: 22.4px 22.4px;
+  background-repeat: no-repeat;
+  animation: loader 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+
+@keyframes loader {
+  33% {
+    inset: -11.2px;
+    transform: rotate(0deg);
+  }
+
+  66% {
+    inset: -11.2px;
+    transform: rotate(90deg);
+  }
+
+  100% {
+    inset: 0;
+    transform: rotate(90deg);
+  }
+}
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.surahinfo{
+  gap: 30px;
+  background: rgba(255, 255, 255, 0.079);
+  backdrop-filter: blur(10px); 
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 3px 3px 10px #456f82;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+select,#number,#inputreaders{
+   background: radial-gradient(circle at right, #0f2027, #203a43, #2c5364);
+   width: 150px;
+   border-radius: 10px;
+   outline: none;
+}
+select:hover,#number{
+  cursor: pointer;
+}
+option{
+  background-color: #2c5364; 
+}
+
+#ayat{
+  width: 40%;
+  height: fit-content;
+  background-color: rgba(247, 246, 251, 0.899);
+  box-shadow: 1px 1px 3px rgb(245, 233, 233);
+  border-radius: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.arrow{
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:absolute;
+  left: 0;
+  top: 50%;
+  margin-left: 2px;
+}
+.arrow:hover{
+  cursor: pointer;
+}
+.arrowright{
+  right: 0;
+  top: 50%;
+  margin-right: 2px;
+}
+
+#error{
+  background-color: #b02a37b1;
+  border-radius: 10px;
+  margin-right: 140px;
+  position: absolute;
+  width: 92%;
+  pointer-events: none;
+  transition: 0.4s;
+  p{
+    margin-right: 20px;
+  }
+}
+@media screen and (max-width: 614px) {
+  .surahinfo{
+    margin-right: 30px;
+  }
+  #ayat{
+    width: 100%;
+    margin-right: 80px;
+  }
+}
+

@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+* {
+  font-family: "Almarai", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+  background-attachment: fixed;
+  display: flex;
+}
+#logo{
+  width: 30px;
+  height: 30px;
+  transition: 0.4s;
+}
+a {
+  text-decoration: none;
+  display: block;
+  gap: 20px;
+  align-items: center;
+  padding: 5px;
+  transition: 0.5s;
+  width: 88%;
+  margin-right: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+a:hover{
+  background-color: rgba(255, 255, 255, 0.671);
+  border-radius: 8px;
+  p,i{
+    color: black;
+  }
+}
+.sidebar {
+  background: radial-gradient(circle at top, #3b5d6c, #203a43, #2c5364);
+  min-height: 100vh;
+  min-height: 100vh;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  overflow: hidden;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius:20px ;
+  transition: 0.5s;
+}
+.sidebar:hover{
+  width: 188px;
+  #logo{
+  width: 100px;
+  height: 100px;
+  }
+}
+#loader {
+  width: 44.8px;
+  height: 44.8px;
+  color: #ffffff;
+  position: absolute;
+  inset: 0; /* top:0; left:0; right:0; bottom:0; */
+  margin: auto;
+  background: radial-gradient(11.2px, currentColor 94%, #0000);
+}
+
+#loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(10.08px at bottom right, #0000 94%, currentColor)
+      top left,
+    radial-gradient(10.08px at bottom left, #0000 94%, currentColor) top right,
+    radial-gradient(10.08px at top right, #0000 94%, currentColor) bottom left,
+    radial-gradient(10.08px at top left, #0000 94%, currentColor) bottom right;
+  background-size: 22.4px 22.4px;
+  background-repeat: no-repeat;
+  animation: loader 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+
+@keyframes loader {
+  33% {
+    inset: -11.2px;
+    transform: rotate(0deg);
+  }
+
+  66% {
+    inset: -11.2px;
+    transform: rotate(90deg);
+  }
+
+  100% {
+    inset: 0;
+    transform: rotate(90deg);
+  }
+}
+.content {
+  margin: 0px 20px;
+  width: 100%;
+}
+
+.parentcont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.containerazkar {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.079);
+  backdrop-filter: blur(10px); 
+  border-radius: 10px;
+  width: 95%;
+  height: 15%;
+  padding: 15px;
+  box-shadow: 3px 3px 10px #456f82;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  position: relative;
+}
+.azkar {
+  background-color: rgba(247, 246, 251, 0.899);
+  box-shadow: 1px 1px 3px rgb(245, 233, 233);
+  color: black;
+  width: 18%;
+  padding: 10px;
+  border-radius: 3px;
+  transition: 0.4s;
+  flex-grow: 1;
+  text-align: center;
+}
+.azkar:hover , .selected {
+    background-image: linear-gradient(#203a43, #2c5364);
+  box-shadow: 1px 1px 2px #456f82;
+  color: white;
+  cursor: pointer;
+}
+.displayAzkar {
+  position: relative;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dis {
+  background-color: rgba(247, 246, 251, 0.899);
+  box-shadow: 1px 1px 3px rgb(245, 233, 233);
+  padding: 10px;
+  border-radius: 5px;
+  width: 60%;
+  margin: 10px 0;
+  
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p{
+      color: black;
+    }
+    .cont{
+    width: 90%;
+    }
+  }
+  
+  .description {
+    color: rgb(8, 99, 90);
+  }
+  .countdown {
+    background-color: rgb(8, 99, 90);
+    padding: 10px;
+    width: 50px;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+  .countdown:hover {
+    cursor: pointer;
+  }
+}
+
+#moveup {
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  text-align: center;
+  border-radius: 50%;
+  bottom: 10px;
+  right: 40px;
+  display: none;
+  i {
+    color: black;
+    font-size: 20px;
+  }
+}
+#moveup:hover {
+  cursor: pointer;
+}

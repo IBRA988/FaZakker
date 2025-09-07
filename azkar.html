@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الاذكار</title>
+    <link rel="stylesheet" href="azkar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/x-icon" href="./favicon_io (1)/favicon.ico">
+    <script src="./node_modules/axios/dist/axios.js"></script>
+  </head>
+  <body lang="ar" dir="rtl">
+    <div class="sidebar">
+      <p><img id="logo" src="./favicon_io (1)/android-chrome-512x512.png" alt=""></p>
+      <a href="quran.html"><i class="fa-solid fa-book-quran"></i><p> القران الكريم</p></a>
+      <a href="index.html"><i class="fa-solid fa-clock"></i><p>مواقيت الصلاة</p> </a>
+      <a href="#"><i class="fa-solid fa-book-open"></i><p>الاذكار</p></a>
+    </div>
+    <div class="content">
+      <div class="parentcont">
+        <div class="containerazkar"></div>
+      </div>
+      <div class="displayAzkar"></div>
+    </div>
+    <button id="moveup"><i class="fa-solid fa-arrow-up"></i></button>
+    <script src="azkar.js"></script>
+  </body>
+</html>

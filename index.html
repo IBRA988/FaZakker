@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مواقيت الصلاة</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=prayer_times"
+    />
+    <link rel="icon" type="image/x-icon" href="./favicon_io (1)/favicon.ico">
+    <script src="./node_modules/axios/dist/axios.js"></script>
+  </head>
+  <body lang="ar" dir="rtl">
+    <div class="sidebar">
+      <p><img id="logo" src="./favicon_io (1)/android-chrome-512x512.png" alt=""></p>
+      <a href="quran.html"><i class="fa-solid fa-book-quran"></i><p> القران الكريم</p></a>
+      <a href="#"><i class="fa-solid fa-clock"></i><p>مواقيت الصلاة</p> </a>
+      <a href="azkar.html"><i class="fa-solid fa-book-open"></i><p>الاذكار</p></a>
+    </div>
+
+    <div class="content">
+      <div class="content2">
+        <div class="backg">
+          <div class="info">
+            <div class="city">
+              <label for="countrys">المدينة</label>
+              <select
+                name="country"
+                id="countrys"
+                title="اختر المدينة"
+                onchange="getTime(this.value)"
+              >
+                <option value="Makkah,SA">مكة المكرمة</option>
+                <option value="Madinah,SA">المدينة المنورة</option>
+                <option value="Riyadh,SA">الرياض</option>
+                <option value="Jeddah,SA">جدة</option>
+                <option value="Dammam,SA">الدمام</option>
+                <option value="Al-Hofuf,SA">الهفوف</option>
+                <option value="Khobar,SA">الخبر</option>
+                <option value="Taif,SA">الطائف</option>
+                <option value="Tabuk,SA">تبوك</option>
+                <option value="Abha,SA">أبها</option>
+                <option value="Khamis Mushait,SA">خميس مشيط</option>
+                <option value="Najran,SA">نجران</option>
+                <option value="Jizan,SA">جازان</option>
+                <option value="Hail,SA">حائل</option>
+                <option value="Unaizah,SA">عنيزة</option>
+                <option value="Al Baha,SA">الباحة</option>
+                <option value="Sakakah,SA">سكاكا</option>
+                <option value="Arar,SA">عرعر</option>
+                <option value="Al Qassim,SA">القصيم</option>
+              </select>
+            </div>
+            <div class="date">
+              <div class="daycontainer">
+                <label>اليوم</label>
+                <p id="day"></p>
+              </div>
+              <div class="datecontainer">
+                <label for="date">التاريخ</label>
+                <input
+                  type="date"
+                  name=""
+                  id="date"
+                  value=""
+                  onchange="getTime(undefined,this.value)"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="prays"></div>
+          <div class="notification">
+            <button id="btnNotification">تمكين الاشعارات</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="error" style="opacity: 0">
+      <p id="errpr"></p>
+    </div>
+    <div id="message" style="opacity: 0;">
+
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
