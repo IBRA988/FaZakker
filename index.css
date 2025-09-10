@@ -82,7 +82,7 @@ a:hover{
   backdrop-filter: blur(10px);
   padding: 40px;
   border-radius: 10px;
-  height: 62%;
+  height: 68%;
   width: 65%;
   align-items: center;
   box-shadow: 3px 3px 10px #456f82;
@@ -226,13 +226,16 @@ select:hover {
 }
 @media screen and (max-width: 614px) {
   .content2 .backg{
-    height: 90%;
+    height: 80%;
   }
   .pray{
     width: 35%;
   }
   #timeleft{
     font-size: 13px;
+  }
+  .notification{
+    display: none;
   }
 }
 
