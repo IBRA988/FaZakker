@@ -12,6 +12,9 @@ let day_date;
 if (d.getDate() < 10) {
   day_date = "0" + d.getDate();
 }
+else{
+  day_date = d.getDate()
+}
 
 let date_today = day_date + "-" + month + "-" + d.getFullYear();
 let dateForInput = `${d.getFullYear()}-${month}-${day_date}`;
@@ -123,6 +126,7 @@ function nextPray(country, date) {
       `https://api.aladhan.com/v1/nextPrayerByAddress/${date_today}?address=${country}&method=4`
     )
     .then(function (response) {
+
       let prayName = response.data.data.timings;
       // will have the name of pary
       let keyPray = String(Object.keys(prayName));
@@ -197,7 +201,7 @@ function updateCountdown(prayName) {
     let current = new Date();
     let diff = prayerDate - current;
 
-    if (diff <= 0) {
+    if (diff == 0) {
       let prayNameinArabic =
         prayName == "Fajr"
           ? "الفجر"
@@ -224,6 +228,9 @@ function updateCountdown(prayName) {
     let minutes = Math.floor((diffSec % 3600) / 60);
     let seconds = diffSec % 60;
     let timeleft = document.getElementById("timeleft");
+    if(hours < 0 || minutes < 0 || seconds < 0){
+      return;
+    }
     if (timeleft != null) {
       timeleft.innerHTML = `يتبقى على رفع الاذان : ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
     }
