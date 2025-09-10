@@ -200,8 +200,8 @@ function updateCountdown(prayName) {
   timer = setInterval(() => {
     let current = new Date();
     let diff = prayerDate - current;
-
-    if (diff == 0) {
+    if (diff <= 0) {
+      
       let prayNameinArabic =
         prayName == "Fajr"
           ? "الفجر"
