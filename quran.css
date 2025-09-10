@@ -156,7 +156,7 @@ option{
   top: 50%;
   margin-left: 2px;
 }
-.arrow:hover{
+.arrow:hover,.bottomPageNext:hover,.bottomPagePervious:hover{
   cursor: pointer;
 }
 .arrowright{
@@ -164,7 +164,39 @@ option{
   top: 50%;
   margin-right: 2px;
 }
-
+.bottomPageNext{
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+  position: absolute;
+  bottom: 0;
+  right: 60%;
+  padding: 7px;
+  font-size: 13px;
+  border-radius: 5px;
+}
+.bottomPagePervious{
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+  position: absolute;
+  bottom: 0;
+  left: 60%;
+  padding: 7px;
+  font-size: 13px;
+  border-radius: 5px;
+}
+#pageNumBottom{
+  position: absolute;
+  bottom:0;
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+  width: fit-content;
+  padding: 5px;
+  width: 50px;
+  border-radius: 7px;
+  text-align: center;
+}
+.bottomcont{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 #error{
   background-color: #b02a37b1;
   border-radius: 10px;

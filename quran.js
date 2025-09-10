@@ -17,13 +17,11 @@ function quran() {
         });
         i++;
       }
-      if(localStorage.pagenum != null){
-        displaysurah(localStorage.pagenum)
-      }
-      else{
+      if (localStorage.pagenum != null) {
+        displaysurah(localStorage.pagenum);
+      } else {
         displaysurah();
       }
-      
     })
     .catch(() => {
       document.getElementById("error").style.opacity = "1";
@@ -52,17 +50,27 @@ function displaysurah(startpage = 1) {
     .then((page) => {
       document.getElementById("ayat").innerHTML = "";
       document.getElementById("number").value = Number(num);
-    
+
       let n = num;
+      let nextPage = ++num;
+      let perviousPage = num - 2;
       document.getElementById("ayat").innerHTML = `
            ${page.data}
-           <p onclick = "displaysurah(${++num})" class="arrow" id="arrowleft" title="الى الصفحة التالية"><i class="fa-solid fa-arrow-left" style="color:white"></i></p>
+           <p onclick = "displaysurah(${nextPage})" class="arrow" id="arrowleft" title="الى الصفحة التالية"><i class="fa-solid fa-arrow-left" style="color:white"></i></p>
            <p onclick = "displaysurah(${
-             num - 2
+             perviousPage
            })" class="arrow arrowright" id="arrowright" title="الى الصفحة السابقة"><i class="fa-solid fa-arrow-right" style="color:white"></i></p>
+           <br><br>
+           <div class="bottomcont">
+           <p onclick = "displaysurah(${nextPage})" class="bottomPageNext" id="arrowleft" title="الى الصفحة التالية">الصفحة التالية <i class="fa-solid fa-arrow-left" style="color:white"></i></p>
+           <p id="pageNumBottom" title="رقم الصفحة الحالية">${document.getElementById("number").value}</p>
+           <p onclick = "displaysurah(${
+             perviousPage
+           })" class="bottomPagePervious" id="arrowright" title="الى الصفحة السابقة"><i class="fa-solid fa-arrow-right" style="color:white"></i> الصفحة السابقة</p>
+           </div>
            `;
 
-      putsurah(Number(n));     
+      putsurah(Number(n));
       if (n == 1) {
         document.getElementById("arrowright").style.display = "none";
       }
@@ -71,11 +79,11 @@ function displaysurah(startpage = 1) {
       }
     })
     .catch(() => {
-      setTimeout(() =>{
+      setTimeout(() => {
         document.getElementById("error").style.opacity = "1";
-      document.getElementById("errpr").innerHTML =
-        "❌ رقم الصفحة غير صحيح، الرجاء إدخال رقم صفحة صحيح  .";
-      },1000)
+        document.getElementById("errpr").innerHTML =
+          "❌ رقم الصفحة غير صحيح، الرجاء إدخال رقم صفحة صحيح  .";
+      }, 1000);
       setTimeout(() => {
         document.getElementById("error").style.opacity = "0";
       }, 2000);
@@ -83,7 +91,6 @@ function displaysurah(startpage = 1) {
 }
 
 function putsurah(pagenum) {
-
   let select = document.getElementById("listsuwar");
   let selectedOption = select.options[select.selectedIndex];
   selectedOption.removeAttribute("selected");
@@ -100,4 +107,3 @@ function putsurah(pagenum) {
     }
   }
 }
-
