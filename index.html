@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>فَذَكِّرْ | مواقيت الصلاة</title>
+  <title>فَذَكِّرْ | مواقيت الصلاة والقبلة</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico" />
@@ -173,6 +176,19 @@
         </h3>
         <div class="prayers-grid" id="prayersGrid">
           <div class="loader-spinner"></div>
+        </div>
+      </section>
+
+      <!-- Qibla Direction Compass Section -->
+      <section class="qibla-card">
+        <div class="qibla-info">
+          <h4><i class="fa-solid fa-compass" style="color:var(--gold-light);"></i> اتجاه القبلة نحو الكعبة المشرفة</h4>
+          <p style="font-size:13px; color:var(--text-secondary);">اتجاه القبلة المباشر حسب إحداثيات المدينة المحددة أو موقعك الجغرافي:</p>
+          <span id="qiblaAngleText" style="font-size:15px; font-weight:700; color:var(--emerald-light);">جاري حساب الاتجاه...</span>
+        </div>
+
+        <div class="qibla-compass-box" title="بوصلة اتجاه القبلة">
+          <div class="qibla-needle" id="qiblaNeedle"></div>
         </div>
       </section>
 

@@ -1,5 +1,5 @@
 /**
- * Prayer Times Logic & Countdown Engine
+ * Prayer Times Logic & Countdown Engine with Qibla Direction
  */
 
 const PrayersManager = {
@@ -13,39 +13,39 @@ const PrayersManager = {
   isPlayingAdhan: false,
 
   cities: [
-    { name: 'الهفوف (الأحساء) - السعودية', value: 'Al-Hofuf,SA' },
-    { name: 'مكة المكرمة - السعودية', value: 'Makkah,SA' },
-    { name: 'المدينة المنورة - السعودية', value: 'Madinah,SA' },
-    { name: 'الرياض - السعودية', value: 'Riyadh,SA' },
-    { name: 'جدة - السعودية', value: 'Jeddah,SA' },
-    { name: 'الدمام - السعودية', value: 'Dammam,SA' },
-    { name: 'الخبر - السعودية', value: 'Khobar,SA' },
-    { name: 'المبرز - السعودية', value: 'Al Mubarraz,SA' },
-    { name: 'الطائف - السعودية', value: 'Taif,SA' },
-    { name: 'أبها - السعودية', value: 'Abha,SA' },
-    { name: 'تبوك - السعودية', value: 'Tabuk,SA' },
-    { name: 'القصيم / بريدة - السعودية', value: 'Buraydah,SA' },
-    { name: 'عنيزة - السعودية', value: 'Unaizah,SA' },
-    { name: 'حائل - السعودية', value: 'Hail,SA' },
-    { name: 'خميس مشيط - السعودية', value: 'Khamis Mushait,SA' },
-    { name: 'نجران - السعودية', value: 'Najran,SA' },
-    { name: 'جازان - السعودية', value: 'Jizan,SA' },
-    { name: 'الباحة - السعودية', value: 'Al Baha,SA' },
-    { name: 'سكاكا - السعودية', value: 'Sakakah,SA' },
-    { name: 'عرعر - السعودية', value: 'Arar,SA' },
-    { name: 'القاهرة - مصر', value: 'Cairo,EG' },
-    { name: 'دبي - الإمارات', value: 'Dubai,AE' },
-    { name: 'الكويت - الكويت', value: 'Kuwait City,KW' },
-    { name: 'عمان - الأردن', value: 'Amman,JO' },
-    { name: 'الدوحة - قطر', value: 'Doha,QA' },
-    { name: 'المنامة - البحرين', value: 'Manama,BH' },
-    { name: 'مسقط - عمان', value: 'Muscat,OM' },
-    { name: 'بغداد - العراق', value: 'Baghdad,IQ' },
-    { name: 'دمشق - سوريا', value: 'Damascus,SY' },
-    { name: 'بيروت - لبنان', value: 'Beirut,LB' },
-    { name: 'القدس - فلسطين', value: 'Jerusalem,PS' },
-    { name: 'إسطنبول - تركيا', value: 'Istanbul,TR' },
-    { name: 'لندن - المملكة المتحدة', value: 'London,GB' }
+    { name: 'الهفوف (الأحساء) - السعودية', value: 'Al-Hofuf,SA', lat: 25.3833, lng: 49.5833 },
+    { name: 'مكة المكرمة - السعودية', value: 'Makkah,SA', lat: 21.4225, lng: 39.8262 },
+    { name: 'المدينة المنورة - السعودية', value: 'Madinah,SA', lat: 24.4672, lng: 39.6108 },
+    { name: 'الرياض - السعودية', value: 'Riyadh,SA', lat: 24.7136, lng: 46.6753 },
+    { name: 'جدة - السعودية', value: 'Jeddah,SA', lat: 21.5433, lng: 39.1728 },
+    { name: 'الدمام - السعودية', value: 'Dammam,SA', lat: 26.4207, lng: 50.0888 },
+    { name: 'الخبر - السعودية', value: 'Khobar,SA', lat: 26.2172, lng: 50.1971 },
+    { name: 'المبرز - السعودية', value: 'Al Mubarraz,SA', lat: 25.4125, lng: 49.5932 },
+    { name: 'الطائف - السعودية', value: 'Taif,SA', lat: 21.2854, lng: 40.4244 },
+    { name: 'أبها - السعودية', value: 'Abha,SA', lat: 18.2164, lng: 42.5053 },
+    { name: 'تبوك - السعودية', value: 'Tabuk,SA', lat: 28.3835, lng: 36.5662 },
+    { name: 'القصيم / بريدة - السعودية', value: 'Buraydah,SA', lat: 26.3260, lng: 43.9750 },
+    { name: 'عنيزة - السعودية', value: 'Unaizah,SA', lat: 26.0844, lng: 43.9936 },
+    { name: 'حائل - السعودية', value: 'Hail,SA', lat: 27.5219, lng: 41.6961 },
+    { name: 'خميس مشيط - السعودية', value: 'Khamis Mushait,SA', lat: 18.3000, lng: 42.7333 },
+    { name: 'نجران - السعودية', value: 'Najran,SA', lat: 17.4924, lng: 44.1277 },
+    { name: 'جازان - السعودية', value: 'Jizan,SA', lat: 16.8892, lng: 42.5511 },
+    { name: 'الباحة - السعودية', value: 'Al Baha,SA', lat: 20.0129, lng: 41.4676 },
+    { name: 'سكاكا - السعودية', value: 'Sakakah,SA', lat: 29.9697, lng: 40.2064 },
+    { name: 'عرعر - السعودية', value: 'Arar,SA', lat: 30.9753, lng: 41.0381 },
+    { name: 'القاهرة - مصر', value: 'Cairo,EG', lat: 30.0444, lng: 31.2357 },
+    { name: 'دبي - الإمارات', value: 'Dubai,AE', lat: 25.2048, lng: 55.2708 },
+    { name: 'الكويت - الكويت', value: 'Kuwait City,KW', lat: 29.3759, lng: 47.9774 },
+    { name: 'عمان - الأردن', value: 'Amman,JO', lat: 31.9454, lng: 35.9284 },
+    { name: 'الدوحة - قطر', value: 'Doha,QA', lat: 25.2854, lng: 51.5310 },
+    { name: 'المنامة - البحرين', value: 'Manama,BH', lat: 26.2285, lng: 50.5860 },
+    { name: 'مسقط - عمان', value: 'Muscat,OM', lat: 23.5880, lng: 58.3829 },
+    { name: 'بغداد - العراق', value: 'Baghdad,IQ', lat: 33.3152, lng: 44.3661 },
+    { name: 'دمشق - سوريا', value: 'Damascus,SY', lat: 33.5138, lng: 36.2765 },
+    { name: 'بيروت - لبنان', value: 'Beirut,LB', lat: 33.8938, lng: 35.5018 },
+    { name: 'القدس - فلسطين', value: 'Jerusalem,PS', lat: 31.7683, lng: 35.2137 },
+    { name: 'إسطنبول - تركيا', value: 'Istanbul,TR', lat: 41.0082, lng: 28.9784 },
+    { name: 'لندن - المملكة المتحدة', value: 'London,GB', lat: 51.5074, lng: -0.1278 }
   ],
 
   prayerNamesAr: {
@@ -94,7 +94,6 @@ const PrayersManager = {
     const select = document.getElementById('citySelect');
     if (select) select.value = savedCity;
 
-    // Date input default to today
     const dateInput = document.getElementById('dateInput');
     if (dateInput) {
       dateInput.value = new Date().toISOString().split('T')[0];
@@ -194,11 +193,26 @@ const PrayersManager = {
         this.displayHijriDate(data.date.hijri);
         this.renderPrayerCards(data.timings);
         this.calculateNextPrayer(data.timings);
+
+        // Update Qibla Compass
+        const cityData = this.cities.find(c => c.value === this.selectedCity);
+        const lat = this.coords ? this.coords.lat : (cityData ? cityData.lat : 25.3833);
+        const lng = this.coords ? this.coords.lng : (cityData ? cityData.lng : 49.5833);
+        this.updateQiblaDirection(lat, lng);
       })
       .catch(err => {
         console.error(err);
         App.showToast('عذرًا، تعذر تحميل مواقيت الصلاة. تحقق من الاتصال.', 'error');
       });
+  },
+
+  updateQiblaDirection(lat, lng) {
+    const angle = App.calculateQiblaBearing(lat, lng);
+    const needle = document.getElementById('qiblaNeedle');
+    const angleText = document.getElementById('qiblaAngleText');
+
+    if (needle) needle.style.transform = `rotate(${angle}deg)`;
+    if (angleText) angleText.textContent = `${angle}° من اتجاه الشمال`;
   },
 
   displayHijriDate(hijri) {
@@ -267,7 +281,6 @@ const PrayersManager = {
       }
     }
 
-    // If all prayers today passed, next is Fajr tomorrow
     if (!foundNext) {
       const fajrStr = timings['Fajr'].split(' ')[0];
       const [h, m] = fajrStr.split(':').map(Number);
@@ -280,12 +293,10 @@ const PrayersManager = {
     this.nextPrayerTime = foundNext.date;
     this.nextPrayerName = foundNext.name;
 
-    // Highlight card
     document.querySelectorAll('.pray-card').forEach(c => c.classList.remove('active-next'));
     const activeCard = document.querySelector(`.pray-card[data-prayer="${foundNext.key}"]`);
     if (activeCard) activeCard.classList.add('active-next');
 
-    // Update Hero UI
     const nameEl = document.getElementById('nextPrayerName');
     const targetEl = document.getElementById('nextPrayerTargetTime');
     if (nameEl) nameEl.textContent = foundNext.name;

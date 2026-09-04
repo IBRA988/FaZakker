@@ -1,0 +1,22 @@
+{
+  "name": "فَذَكِّرْ - تطبيق إسلامي شامل",
+  "short_name": "فَذَكِّرْ",
+  "description": "تطبيق إسلامي فريد يشتمل على مواقيت الصلاة بالذكاء الجغرافي، المصحف التفاعلي بالتلاوات الصوتية، حصن المسلم، والمسبحة الرقمية.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#07111a",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/images/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/images/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
