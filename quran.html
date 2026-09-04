@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,7 +35,7 @@
 
       <ul class="nav-links">
         <li class="nav-item">
-          <a href="index.html">
+          <a href="prayers.html">
             <i class="fa-solid fa-clock"></i>
             <span>مواقيت الصلاة</span>
           </a>
@@ -64,7 +64,7 @@
 
     <!-- Mobile Bottom Navigation Bar -->
     <nav class="mobile-nav">
-      <a href="index.html" class="mobile-nav-item">
+      <a href="prayers.html" class="mobile-nav-item">
         <i class="fa-solid fa-clock"></i>
         <span>المواقيت</span>
       </a>
@@ -86,6 +86,16 @@
         <div class="header-title">
           <h2><i class="fa-solid fa-book-quran" style="color:var(--gold-light);"></i> القرآن الكريم - المصحف الشريف</h2>
           <p>تصفح وتلاوة آيات القرآن الكريم بالرسم العثماني الشريف مع الاستماع لأشهر القراء</p>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-icon btn-sidebar-toggle" title="طَي / توسيع القائمة الجانبية">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+
+          <button class="btn btn-secondary btn-icon btn-theme-toggle" title="التبديل بين الوضع الداكن والفاتح">
+            <i class="fa-solid fa-sun"></i>
+          </button>
         </div>
       </header>
 
@@ -109,7 +119,7 @@
             <span>حفظ العلامة</span>
           </button>
 
-          <div style="display: flex; gap: 4px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+          <div style="display: flex; gap: 4px; background: var(--input-bg); padding: 4px; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
             <button id="btnZoomIn" class="btn btn-secondary btn-icon" title="تكبير الصفحة"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
             <button id="btnZoomOut" class="btn btn-secondary btn-icon" title="تصغير الصفحة"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
             <button id="btnZoomReset" class="btn btn-secondary btn-icon" title="إعادة الحجم الأصلي"><i class="fa-solid fa-rotate-left"></i></button>

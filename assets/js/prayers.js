@@ -3,7 +3,7 @@
  */
 
 const PrayersManager = {
-  selectedCity: 'Makkah,SA',
+  selectedCity: 'Al-Hofuf,SA',
   coords: null,
   selectedDate: new Date(),
   nextPrayerTime: null,
@@ -13,35 +13,39 @@ const PrayersManager = {
   isPlayingAdhan: false,
 
   cities: [
+    { name: 'الهفوف (الأحساء) - السعودية', value: 'Al-Hofuf,SA' },
     { name: 'مكة المكرمة - السعودية', value: 'Makkah,SA' },
     { name: 'المدينة المنورة - السعودية', value: 'Madinah,SA' },
     { name: 'الرياض - السعودية', value: 'Riyadh,SA' },
     { name: 'جدة - السعودية', value: 'Jeddah,SA' },
     { name: 'الدمام - السعودية', value: 'Dammam,SA' },
+    { name: 'الخبر - السعودية', value: 'Khobar,SA' },
+    { name: 'المبرز - السعودية', value: 'Al Mubarraz,SA' },
     { name: 'الطائف - السعودية', value: 'Taif,SA' },
     { name: 'أبها - السعودية', value: 'Abha,SA' },
     { name: 'تبوك - السعودية', value: 'Tabuk,SA' },
-    { name: 'القصيم - السعودية', value: 'Al Qassim,SA' },
+    { name: 'القصيم / بريدة - السعودية', value: 'Buraydah,SA' },
+    { name: 'عنيزة - السعودية', value: 'Unaizah,SA' },
+    { name: 'حائل - السعودية', value: 'Hail,SA' },
+    { name: 'خميس مشيط - السعودية', value: 'Khamis Mushait,SA' },
+    { name: 'نجران - السعودية', value: 'Najran,SA' },
+    { name: 'جازان - السعودية', value: 'Jizan,SA' },
+    { name: 'الباحة - السعودية', value: 'Al Baha,SA' },
+    { name: 'سكاكا - السعودية', value: 'Sakakah,SA' },
+    { name: 'عرعر - السعودية', value: 'Arar,SA' },
     { name: 'القاهرة - مصر', value: 'Cairo,EG' },
-    { name: 'الأسكندرية - مصر', value: 'Alexandria,EG' },
     { name: 'دبي - الإمارات', value: 'Dubai,AE' },
-    { name: 'أبو ظبي - الإمارات', value: 'Abu Dhabi,AE' },
     { name: 'الكويت - الكويت', value: 'Kuwait City,KW' },
     { name: 'عمان - الأردن', value: 'Amman,JO' },
     { name: 'الدوحة - قطر', value: 'Doha,QA' },
-    { name: 'الرياض / المنامة - البحرين', value: 'Manama,BH' },
+    { name: 'المنامة - البحرين', value: 'Manama,BH' },
     { name: 'مسقط - عمان', value: 'Muscat,OM' },
     { name: 'بغداد - العراق', value: 'Baghdad,IQ' },
     { name: 'دمشق - سوريا', value: 'Damascus,SY' },
     { name: 'بيروت - لبنان', value: 'Beirut,LB' },
     { name: 'القدس - فلسطين', value: 'Jerusalem,PS' },
-    { name: 'تونس - تونس', value: 'Tunis,TN' },
-    { name: 'الجزائر - الجزائر', value: 'Algiers,DZ' },
-    { name: 'الرباط - المغرب', value: 'Rabat,MA' },
     { name: 'إسطنبول - تركيا', value: 'Istanbul,TR' },
-    { name: 'لندن - المملكة المتحدة', value: 'London,GB' },
-    { name: 'باريس - فرنسا', value: 'Paris,FR' },
-    { name: 'نيويورك - أمريكا', value: 'New York,US' }
+    { name: 'لندن - المملكة المتحدة', value: 'London,GB' }
   ],
 
   prayerNamesAr: {
@@ -85,7 +89,7 @@ const PrayersManager = {
   },
 
   loadSavedSettings() {
-    const savedCity = App.storage.get('city', 'Makkah,SA');
+    const savedCity = App.storage.get('city', 'Al-Hofuf,SA');
     this.selectedCity = savedCity;
     const select = document.getElementById('citySelect');
     if (select) select.value = savedCity;
@@ -328,7 +332,7 @@ const PrayersManager = {
   },
 
   triggerAdhanAlert(prayerName) {
-    App.showToast(`Log: حان الآن موعد أذان صلاة ${prayerName}`, 'success', 8000);
+    App.showToast(`حان الآن موعد أذان صلاة ${prayerName}`, 'success', 8000);
     this.playAdhan();
 
     if ('Notification' in window && Notification.permission === 'granted') {

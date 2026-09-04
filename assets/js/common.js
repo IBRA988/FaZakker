@@ -1,8 +1,76 @@
 /**
- * Common Utility & App Core Utilities
+ * Common Utility & App Core Utilities (Theme & Nav Engine)
  */
 
 const App = {
+  theme: 'dark',
+  sidebarCollapsed: false,
+
+  init() {
+    this.initTheme();
+    this.initSidebarToggle();
+    this.initScrollTop();
+    this.initActiveNav();
+  },
+
+  // Theme Controller (Dark / Light Mode)
+  initTheme() {
+    const savedTheme = this.storage.get('theme', 'dark');
+    this.setTheme(savedTheme);
+
+    // Bind Theme Toggle Buttons across header/sidebar
+    document.querySelectorAll('.btn-theme-toggle').forEach(btn => {
+      btn.addEventListener('click', () => this.toggleTheme());
+    });
+  },
+
+  setTheme(theme) {
+    this.theme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    this.storage.set('theme', theme);
+    this.updateThemeBtnUI();
+  },
+
+  toggleTheme() {
+    const newTheme = this.theme === 'dark' ? 'light' : 'dark';
+    this.setTheme(newTheme);
+    this.showToast(newTheme === 'dark' ? 'تم التبديل إلى الوضع الداكن 🌙' : 'تم التبديل إلى الوضع الفاتح ☀️', 'info');
+  },
+
+  updateThemeBtnUI() {
+    document.querySelectorAll('.btn-theme-toggle').forEach(btn => {
+      if (this.theme === 'dark') {
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        btn.title = 'التبديل للوضع الفاتح';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        btn.title = 'التبديل للوضع الداكن';
+      }
+    });
+  },
+
+  // Sidebar Collapse Controller
+  initSidebarToggle() {
+    this.sidebarCollapsed = this.storage.get('sidebar_collapsed', false);
+    this.applySidebarState();
+
+    document.querySelectorAll('.btn-sidebar-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.sidebarCollapsed = !this.sidebarCollapsed;
+        this.storage.set('sidebar_collapsed', this.sidebarCollapsed);
+        this.applySidebarState();
+      });
+    });
+  },
+
+  applySidebarState() {
+    if (this.sidebarCollapsed) {
+      document.body.classList.add('sidebar-collapsed');
+    } else {
+      document.body.classList.remove('sidebar-collapsed');
+    }
+  },
+
   // Toast notification engine
   showToast(message, type = 'info', duration = 3500) {
     let container = document.querySelector('.toast-container');
@@ -28,7 +96,7 @@ const App = {
     }, duration);
   },
 
-  // Audio click synthesizer using Web Audio API (Zero external mp3 needed!)
+  // Audio click synthesizer using Web Audio API
   playClickSound() {
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -49,12 +117,10 @@ const App = {
 
       osc.start();
       osc.stop(ctx.currentTime + 0.05);
-    } catch (e) {
-      // AudioContext muted or blocked
-    }
+    } catch (e) {}
   },
 
-  // Haptic feedback for mobile devices
+  // Haptic feedback
   vibrate(ms = 35) {
     if ('vibrate' in navigator) {
       try {
@@ -63,7 +129,7 @@ const App = {
     }
   },
 
-  // LocalStorage wrapper with JSON fallback
+  // LocalStorage wrapper
   storage: {
     get(key, defaultValue = null) {
       try {
@@ -80,7 +146,6 @@ const App = {
     }
   },
 
-  // Scroll to top initializer
   initScrollTop() {
     const btn = document.createElement('button');
     btn.className = 'btn-scroll-top';
@@ -101,11 +166,11 @@ const App = {
     });
   },
 
-  // Highlight active menu link based on current page HTML
   initActiveNav() {
     const path = window.location.pathname.toLowerCase();
-    const isQuran = path.includes('quran.html');
-    const isAzkar = path.includes('azkar.html');
+    const isQuran = path.includes('quran');
+    const isAzkar = path.includes('azkar');
+    const isPrayers = path.includes('prayers') || path.includes('index') || path.endsWith('/');
 
     // Sidebar items
     document.querySelectorAll('.nav-item').forEach(item => {
@@ -113,7 +178,7 @@ const App = {
       item.classList.remove('active');
       if (isQuran && href && href.includes('quran')) item.classList.add('active');
       else if (isAzkar && href && href.includes('azkar')) item.classList.add('active');
-      else if (!isQuran && !isAzkar && href && (href.includes('index') || href === '#' || href === './')) item.classList.add('active');
+      else if (isPrayers && href && (href.includes('prayers') || href.includes('index'))) item.classList.add('active');
     });
 
     // Mobile nav items
@@ -122,12 +187,11 @@ const App = {
       item.classList.remove('active');
       if (isQuran && href && href.includes('quran')) item.classList.add('active');
       else if (isAzkar && href && href.includes('azkar')) item.classList.add('active');
-      else if (!isQuran && !isAzkar && href && (href.includes('index') || href === '#')) item.classList.add('active');
+      else if (isPrayers && href && (href.includes('prayers') || href.includes('index'))) item.classList.add('active');
     });
   }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  App.initScrollTop();
-  App.initActiveNav();
+  App.init();
 });
