@@ -1,66 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>القران الكريم</title>
-    <link rel="stylesheet" href="quran.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="icon" type="image/x-icon" href="./favicon_io (1)/favicon.ico">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <script src="./node_modules/axios/dist/axios.js"></script> -->
-  </head>
-  <body lang="ar" dir="rtl">
-    <div class="sidebar">
-      <p><img id="logo" src="./favicon_io (1)/android-chrome-512x512.png" alt=""></p>
-      <a href="#"><i class="fa-solid fa-book-quran"></i><p> القران الكريم</p></a>
-      <a href="index.html"><i class="fa-solid fa-clock"></i><p>مواقيت الصلاة</p> </a>
-      <a href="azkar.html"><i class="fa-solid fa-book-open"></i><p>الاذكار</p></a>
-    </div>
-    <div class="content">
-      <div class="containerOfSurahinfo">
-        <div class="surahinfo">
-          <div>
-            <label for="listsuwar">اسم السورة</label>
-            <select
-              id="listsuwar"
-              style="text-align: center"
-              onchange="displaysurah(this.options[this.value-1].dataset.startpage)"
-            ></select>
-          </div>
-          <div>
-            <label for="number">رقم الصفحة</label>
-            <input
-              type="number"
-              name="number"
-              id="number"
-              max="604"
-              min="1"
-              style="
-                outline: none;
-                text-align: center;
-                width: 80px;
-                font-size: 15px;
-              "
-              lang="en"
-              oninput="displaysurah(this.value)"
-            />
-          </div>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>فَذَكِّرْ | القرآن الكريم</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" href="./assets/images/favicon/apple-touch-icon.png" />
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <link rel="stylesheet" href="./assets/css/quran.css" />
+
+  <!-- Axios CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="./assets/images/favicon/android-chrome-512x512.png" alt="شعار فَذَكِّرْ" />
+        <div class="sidebar-title">
+          <h1>فَذَكِّرْ</h1>
+          <span>المصحف الإلكتروني</span>
         </div>
       </div>
-      <div id="ayat"></div>
-    </div>
 
-    <div id="error" style="opacity: 0">
-      <p id="errpr"></p>
-    </div>
-    <script src="quran.js"></script>
-  </body>
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="index.html">
+            <i class="fa-solid fa-clock"></i>
+            <span>مواقيت الصلاة</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a href="quran.html">
+            <i class="fa-solid fa-book-quran"></i>
+            <span>القرآن الكريم</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="azkar.html">
+            <i class="fa-solid fa-book-open"></i>
+            <span>الأذكار والمسبحة</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-badge">
+          <i class="fa-solid fa-feather"></i>
+          <span>قراءة بدقة عالية متجاوبة</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-nav">
+      <a href="index.html" class="mobile-nav-item">
+        <i class="fa-solid fa-clock"></i>
+        <span>المواقيت</span>
+      </a>
+      <a href="quran.html" class="mobile-nav-item active">
+        <i class="fa-solid fa-book-quran"></i>
+        <span>القرآن</span>
+      </a>
+      <a href="azkar.html" class="mobile-nav-item">
+        <i class="fa-solid fa-book-open"></i>
+        <span>الأذكار</span>
+      </a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Header Banner -->
+      <header class="page-header">
+        <div class="header-title">
+          <h2><i class="fa-solid fa-book-quran" style="color:var(--gold-light);"></i> القرآن الكريم - المصحف الشريف</h2>
+          <p>تصفح وتلاوة آيات القرآن الكريم بالرسم العثماني الشريف مع الاستماع لأشهر القراء</p>
+        </div>
+      </header>
+
+      <!-- Quran Toolbar -->
+      <section class="quran-toolbar">
+        <div class="toolbar-group">
+          <div class="toolbar-item">
+            <label for="surahSelect"><i class="fa-solid fa-book-bookmark"></i> السورة:</label>
+            <select id="surahSelect" class="form-control"></select>
+          </div>
+
+          <div class="toolbar-item">
+            <label for="pageInput"><i class="fa-solid fa-hashtag"></i> الصفحة (1-604):</label>
+            <input type="number" id="pageInput" class="form-control" min="1" max="604" value="1" style="width: 90px; text-align: center;" />
+          </div>
+        </div>
+
+        <div class="toolbar-group">
+          <button id="btnBookmarkPage" class="btn btn-gold" title="حفظ علامة مرجعية عند هذه الصفحة">
+            <i class="fa-solid fa-bookmark"></i>
+            <span>حفظ العلامة</span>
+          </button>
+
+          <div style="display: flex; gap: 4px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+            <button id="btnZoomIn" class="btn btn-secondary btn-icon" title="تكبير الصفحة"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+            <button id="btnZoomOut" class="btn btn-secondary btn-icon" title="تصغير الصفحة"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+            <button id="btnZoomReset" class="btn btn-secondary btn-icon" title="إعادة الحجم الأصلي"><i class="fa-solid fa-rotate-left"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Audio Reciter Bar -->
+      <section class="quran-audio-bar">
+        <div class="audio-controls">
+          <button id="btnPlayAudio" class="audio-btn-play" title="تشغيل التلاوة الصوتية">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <div class="audio-info">
+            <span class="reciter-name">التلاوة الصوتية للسورة</span>
+            <span class="surah-title" id="audioSurahName">سورة الفاتحة</span>
+          </div>
+        </div>
+
+        <div class="toolbar-item">
+          <label for="reciterSelect"><i class="fa-solid fa-microphone-lines"></i> القارئ:</label>
+          <select id="reciterSelect" class="form-control" style="min-width: 200px;"></select>
+        </div>
+      </section>
+
+      <!-- Floating Page Nav Buttons -->
+      <button id="btnPrevPage" class="page-nav-btn prev-page" title="الصفحة السابقة (السهم الأيمن)">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <button id="btnNextPage" class="page-nav-btn next-page" title="الصفحة التالية (السهم الأيسر)">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+
+      <!-- SVG Quran Page Container -->
+      <section class="quran-container">
+        <div id="quranPaper" class="quran-paper">
+          <div class="loader-spinner"></div>
+        </div>
+
+        <!-- Bottom Page Controls Bar -->
+        <div class="quran-bottom-bar">
+          <button id="btnBottomPrevPage" class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-right"></i>
+            <span>الصفحة السابقة</span>
+          </button>
+
+          <span class="page-num-badge" id="bottomPageBadge">صفحة 1 من 604</span>
+
+          <button id="btnBottomNextPage" class="btn btn-secondary">
+            <span>الصفحة التالية</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./assets/js/common.js"></script>
+  <script src="./assets/js/quran.js"></script>
+</body>
 </html>

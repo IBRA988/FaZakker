@@ -1,13 +1,22 @@
 {
-  "name": "pray-pro",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "fazakker",
+  "version": "2.0.0",
+  "description": "تطبيق إسلامي شامل وفاخر يشتمل على مواقيت الصلاة بالذكاء الجغرافي، المصحف التفاعلي بالتلاوات الصوتية، حصن المسلم، والمسبحة الإلكترونية الرقمية.",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx serve .",
+    "dev": "npx serve ."
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "quran",
+    "azkar",
+    "prayer-times",
+    "islamic-app",
+    "tasbeeh",
+    "adhan"
+  ],
+  "author": "FaZakker",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.11.0"
   }

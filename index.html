@@ -1,98 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مواقيت الصلاة</title>
-    <link rel="stylesheet" href="index.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=prayer_times"
-    />
-    <link rel="icon" type="image/x-icon" href="./favicon_io (1)/favicon.ico">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <script src="./node_modules/axios/dist/axios.js"></script> -->
-  </head>
-  <body lang="ar" dir="rtl">
-    <div class="sidebar">
-      <p><img id="logo" src="./favicon_io (1)/android-chrome-512x512.png" alt=""></p>
-      <a href="quran.html"><i class="fa-solid fa-book-quran"></i><p> القران الكريم</p></a>
-      <a href="#"><i class="fa-solid fa-clock"></i><p>مواقيت الصلاة</p> </a>
-      <a href="azkar.html"><i class="fa-solid fa-book-open"></i><p>الاذكار</p></a>
-    </div>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>فَذَكِّرْ | مواقيت الصلاة</title>
 
-    <div class="content">
-      <div class="content2">
-        <div class="backg">
-          <div class="info">
-            <div class="city">
-              <label for="countrys">المدينة</label>
-              <select
-                name="country"
-                id="countrys"
-                title="اختر المدينة"
-                onchange="getTime(this.value)"
-              >
-                <option value="Makkah,SA">مكة المكرمة</option>
-                <option value="Madinah,SA">المدينة المنورة</option>
-                <option value="Riyadh,SA">الرياض</option>
-                <option value="Jeddah,SA">جدة</option>
-                <option value="Dammam,SA">الدمام</option>
-                <option value="Al-Hofuf,SA">الهفوف</option>
-                <option value="Khobar,SA">الخبر</option>
-                <option value="Taif,SA">الطائف</option>
-                <option value="Tabuk,SA">تبوك</option>
-                <option value="Abha,SA">أبها</option>
-                <option value="Khamis Mushait,SA">خميس مشيط</option>
-                <option value="Najran,SA">نجران</option>
-                <option value="Jizan,SA">جازان</option>
-                <option value="Hail,SA">حائل</option>
-                <option value="Unaizah,SA">عنيزة</option>
-                <option value="Al Baha,SA">الباحة</option>
-                <option value="Sakakah,SA">سكاكا</option>
-                <option value="Arar,SA">عرعر</option>
-                <option value="Al Qassim,SA">القصيم</option>
-              </select>
-            </div>
-            <div class="date">
-              <div class="daycontainer">
-                <label>اليوم</label>
-                <p id="day"></p>
-              </div>
-              <div class="datecontainer">
-                <label for="date">التاريخ</label>
-                <input
-                  type="date"
-                  name=""
-                  id="date"
-                  value=""
-                  onchange="getTime(undefined,this.value)"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="prays"></div>
-          <div class="notification">
-            <button id="btnNotification">تمكين الاشعارات</button>
-          </div>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" href="./assets/images/favicon/apple-touch-icon.png" />
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <link rel="stylesheet" href="./assets/css/prayers.css" />
+
+  <!-- Axios CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="./assets/images/favicon/android-chrome-512x512.png" alt="شعار فَذَكِّرْ" />
+        <div class="sidebar-title">
+          <h1>فَذَكِّرْ</h1>
+          <span>تطبيق إسلامي شامل</span>
         </div>
       </div>
-    </div>
 
-    <div id="error" style="opacity: 0">
-      <p id="errpr"></p>
-    </div>
-    <div id="message" style="opacity: 0;">
+      <ul class="nav-links">
+        <li class="nav-item active">
+          <a href="index.html">
+            <i class="fa-solid fa-clock"></i>
+            <span>مواقيت الصلاة</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="quran.html">
+            <i class="fa-solid fa-book-quran"></i>
+            <span>القرآن الكريم</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="azkar.html">
+            <i class="fa-solid fa-book-open"></i>
+            <span>الأذكار والمسبحة</span>
+          </a>
+        </li>
+      </ul>
 
-    </div>
-    <script src="index.js"></script>
-  </body>
+      <div class="sidebar-footer">
+        <div class="sidebar-badge">
+          <i class="fa-solid fa-kaaba"></i>
+          <span>توقيت دقيق حسب موقعك</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-nav">
+      <a href="index.html" class="mobile-nav-item active">
+        <i class="fa-solid fa-clock"></i>
+        <span>المواقيت</span>
+      </a>
+      <a href="quran.html" class="mobile-nav-item">
+        <i class="fa-solid fa-book-quran"></i>
+        <span>القرآن</span>
+      </a>
+      <a href="azkar.html" class="mobile-nav-item">
+        <i class="fa-solid fa-book-open"></i>
+        <span>الأذكار</span>
+      </a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Header Banner -->
+      <header class="page-header">
+        <div class="header-title">
+          <h2><i class="fa-solid fa-mosque"></i> مواقيت الصلاة والتقويم الهجري</h2>
+          <p id="hijriDateText">جاري تحميل التاريخ الهجري...</p>
+        </div>
+
+        <div class="header-time-badge">
+          <div class="time-box">
+            <span class="time-val" id="liveClock">00:00:00</span>
+            <span class="time-lbl">التوقيت المحلي</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Controls Row -->
+      <section class="glass-card prayers-controls">
+        <div class="location-picker-group">
+          <label for="citySelect" style="font-size: 13px; color: var(--text-secondary); white-space: nowrap;">
+            <i class="fa-solid fa-location-dot"></i> المدينة:
+          </label>
+          <select id="citySelect" class="form-control"></select>
+
+          <button id="btnLocate" class="btn btn-secondary" title="تحديد موقعي التلقائي عبر GPS">
+            <i class="fa-solid fa-crosshairs"></i>
+            <span>موقعي</span>
+          </button>
+        </div>
+
+        <div class="date-picker-group">
+          <label for="dateInput"><i class="fa-regular fa-calendar-days"></i> التاريخ:</label>
+          <input type="date" id="dateInput" class="form-control" />
+        </div>
+
+        <div class="notification-toggle-group">
+          <button id="btnNotifyPermission" class="btn btn-primary">
+            <i class="fa-solid fa-bell"></i>
+            <span>تفعيل الإشعارات</span>
+          </button>
+
+          <button id="btnTestAdhan" class="btn btn-secondary">
+            <i class="fa-solid fa-volume-high"></i>
+            <span>استماع للأذان</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Hero Next Prayer Countdown Section -->
+      <section class="hero-next-prayer">
+        <div class="next-prayer-info">
+          <span class="next-prayer-badge">
+            <i class="fa-solid fa-hourglass-half"></i> الصلاة القادمة
+          </span>
+          <div class="next-prayer-name" id="nextPrayerName">جاري الحساب...</div>
+          <div class="next-prayer-target-time" id="nextPrayerTargetTime">--:--</div>
+        </div>
+
+        <div class="next-prayer-countdown">
+          <div class="countdown-block">
+            <span class="val" id="countHours">00</span>
+            <span class="lbl">ساعة</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-block">
+            <span class="val" id="countMinutes">00</span>
+            <span class="lbl">دقيقة</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-block">
+            <span class="val" id="countSeconds">00</span>
+            <span class="lbl">ثانية</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prayers Grid Section -->
+      <section>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary);">
+          <i class="fa-solid fa-list-check" style="color: var(--gold-light);"></i> أوقات الصلوات الخمس والشروق
+        </h3>
+        <div class="prayers-grid" id="prayersGrid">
+          <div class="loader-spinner"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./assets/js/common.js"></script>
+  <script src="./assets/js/prayers.js"></script>
+</body>
 </html>

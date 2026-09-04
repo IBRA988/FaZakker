@@ -1,36 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>الاذكار</title>
-    <link rel="stylesheet" href="azkar.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="icon" type="image/x-icon" href="./favicon_io (1)/favicon.ico">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <script src="./node_modules/axios/dist/axios.js"></script> -->
-  </head>
-  <body lang="ar" dir="rtl">
-    <div class="sidebar">
-      <p><img id="logo" src="./favicon_io (1)/android-chrome-512x512.png" alt=""></p>
-      <a href="quran.html"><i class="fa-solid fa-book-quran"></i><p> القران الكريم</p></a>
-      <a href="index.html"><i class="fa-solid fa-clock"></i><p>مواقيت الصلاة</p> </a>
-      <a href="#"><i class="fa-solid fa-book-open"></i><p>الاذكار</p></a>
-    </div>
-    <div class="content">
-      <div class="parentcont">
-        <div class="containerazkar"></div>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>فَذَكِّرْ | الأذكار والمسبحة الإلكترونية</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" href="./assets/images/favicon/apple-touch-icon.png" />
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <link rel="stylesheet" href="./assets/css/azkar.css" />
+
+  <!-- Axios CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="./assets/images/favicon/android-chrome-512x512.png" alt="شعار فَذَكِّرْ" />
+        <div class="sidebar-title">
+          <h1>فَذَكِّرْ</h1>
+          <span>حصن المسلم والمسبحة</span>
+        </div>
       </div>
-      <div class="displayAzkar"></div>
-    </div>
-    <button id="moveup"><i class="fa-solid fa-arrow-up"></i></button>
-    <script src="azkar.js"></script>
-  </body>
+
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="index.html">
+            <i class="fa-solid fa-clock"></i>
+            <span>مواقيت الصلاة</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="quran.html">
+            <i class="fa-solid fa-book-quran"></i>
+            <span>القرآن الكريم</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a href="azkar.html">
+            <i class="fa-solid fa-book-open"></i>
+            <span>الأذكار والمسبحة</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-badge">
+          <i class="fa-solid fa-hands-praying"></i>
+          <span>ألا بذكر الله تطمئن القلوب</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-nav">
+      <a href="index.html" class="mobile-nav-item">
+        <i class="fa-solid fa-clock"></i>
+        <span>المواقيت</span>
+      </a>
+      <a href="quran.html" class="mobile-nav-item">
+        <i class="fa-solid fa-book-quran"></i>
+        <span>القرآن</span>
+      </a>
+      <a href="azkar.html" class="mobile-nav-item active">
+        <i class="fa-solid fa-book-open"></i>
+        <span>الأذكار</span>
+      </a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Header Banner -->
+      <header class="page-header">
+        <div class="header-title">
+          <h2><i class="fa-solid fa-book-open" style="color:var(--gold-light);"></i> الأذكار والأدعية والمسبحة الإلكترونية</h2>
+          <p>أذكار اليوم والليلة من حصن المسلم مع عداد تفاعلي للمسبحة الرقمية</p>
+        </div>
+      </header>
+
+      <!-- Azkar Header Controls -->
+      <section class="azkar-header-bar">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <!-- Search Box -->
+          <div class="azkar-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="azkarSearchInput" class="form-control" placeholder="ابحث في نص الأذكار والأدعية..." />
+          </div>
+
+          <!-- Reset Button -->
+          <button id="btnResetCategory" class="btn btn-secondary">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>إعادة ضبط العدادات</span>
+          </button>
+        </div>
+
+        <!-- Categories Chips Scrollable Bar -->
+        <div class="azkar-categories" id="azkarCategories">
+          <div class="loader-spinner" style="margin: 10px auto;"></div>
+        </div>
+      </section>
+
+      <!-- Azkar Cards Grid Container -->
+      <section class="azkar-grid" id="azkarGrid">
+        <div class="loader-spinner"></div>
+      </section>
+
+      <!-- Electronic Tasbeeh Section -->
+      <section class="tasbeeh-container" id="tasbeehContainer">
+        <div class="tasbeeh-card">
+          <h3 style="font-size: 22px; font-weight: 800; color: var(--gold-light); margin-bottom: 20px;">
+            <i class="fa-solid fa-fingerprint"></i> المسبحة الإلكترونية الرقمية
+          </h3>
+
+          <div class="tasbeeh-dhikr-select">
+            <label for="tasbeehDhikrSelect" style="font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 6px;">اختر صيغة الذكر:</label>
+            <select id="tasbeehDhikrSelect" class="form-control" style="width: 100%; font-size: 16px; font-weight: 700; text-align: center;"></select>
+          </div>
+
+          <!-- Round Click Display -->
+          <div class="tasbeeh-counter-display" id="tasbeehDisplay" title="اضغط للتسبيح">
+            <span class="tasbeeh-counter-num" id="tasbeehNum">0</span>
+            <span class="tasbeeh-target-lbl" id="tasbeehTargetLabel">الهدف: 33 تكرار</span>
+          </div>
+
+          <button id="btnTasbeehTap" class="btn btn-gold tasbeeh-btn-tap">
+            <i class="fa-solid fa-hand-pointer"></i> اضغط للتسبيح
+          </button>
+
+          <!-- Target Presets & Reset Row -->
+          <div class="tasbeeh-controls-row">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span style="font-size: 12px; color: var(--text-muted);">تحديد الهدف:</span>
+              <button class="btn btn-secondary btn-target-preset btn-gold" data-target="33">33</button>
+              <button class="btn btn-secondary btn-target-preset" data-target="100">100</button>
+              <button class="btn btn-secondary btn-target-preset" data-target="0">مفتوح</button>
+            </div>
+
+            <button id="btnResetTasbeeh" class="btn btn-secondary" title="تصفير العداد">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>تصفير</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./assets/js/common.js"></script>
+  <script src="./assets/js/azkar.js"></script>
+</body>
 </html>
