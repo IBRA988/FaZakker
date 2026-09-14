@@ -12,6 +12,14 @@ const PrayersManager = {
   adhanAudio: new Audio('https://cdn.islamicfinder.org/athan/makkah.mp3'),
   isPlayingAdhan: false,
 
+  iqamaOffsets: {
+    Fajr: 25,
+    Dhuhr: 20,
+    Asr: 20,
+    Maghrib: 10,
+    Isha: 20
+  },
+
   cities: [
     { name: 'الهفوف (الأحساء) - السعودية', value: 'Al-Hofuf,SA', lat: 25.3833, lng: 49.5833 },
     { name: 'مكة المكرمة - السعودية', value: 'Makkah,SA', lat: 21.4225, lng: 39.8262 },
@@ -89,10 +97,24 @@ const PrayersManager = {
   },
 
   loadSavedSettings() {
-    const savedCity = App.storage.get('city', 'Al-Hofuf,SA');
-    this.selectedCity = savedCity;
-    const select = document.getElementById('citySelect');
-    if (select) select.value = savedCity;
+    const savedOffsets = App.storage.get('iqama_offsets', null);
+    if (savedOffsets) {
+      this.iqamaOffsets = { ...this.iqamaOffsets, ...savedOffsets };
+    }
+
+    const useGps = App.storage.get('use_gps', false);
+    const savedCoords = App.storage.get('coords', null);
+    const savedGpsLabel = App.storage.get('gps_label', 'الموقع الجغرافي');
+
+    if (useGps && savedCoords) {
+      this.coords = savedCoords;
+      this.updateCityDropdownWithGps(savedGpsLabel);
+    } else {
+      const savedCity = App.storage.get('city', 'Al-Hofuf,SA');
+      this.selectedCity = savedCity;
+      const select = document.getElementById('citySelect');
+      if (select) select.value = savedCity;
+    }
 
     const dateInput = document.getElementById('dateInput');
     if (dateInput) {
@@ -100,13 +122,54 @@ const PrayersManager = {
     }
   },
 
+  updateCityDropdownWithGps(locationName) {
+    const select = document.getElementById('citySelect');
+    if (!select) return;
+
+    let gpsOpt = select.querySelector('option[value="GPS_LOCATION"]');
+    if (!gpsOpt) {
+      gpsOpt = document.createElement('option');
+      gpsOpt.value = 'GPS_LOCATION';
+      select.insertBefore(gpsOpt, select.firstChild);
+    }
+    gpsOpt.textContent = `📍 موقعي الحالي (${locationName || 'الموقع الجغرافي'})`;
+    select.value = 'GPS_LOCATION';
+  },
+
+  async updateLocationNameFromCoords(lat, lng) {
+    let locationName = `${lat.toFixed(2)}, ${lng.toFixed(2)}`;
+    try {
+      const res = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=ar`);
+      if (res.data) {
+        const city = res.data.city || res.data.locality || res.data.principalSubdivision || '';
+        const country = res.data.countryName || '';
+        if (city || country) {
+          locationName = [city, country].filter(Boolean).join(' - ');
+        }
+      }
+    } catch (e) {
+      console.log('Reverse geocode error:', e);
+    }
+    App.storage.set('gps_label', locationName);
+    this.updateCityDropdownWithGps(locationName);
+  },
+
   bindEvents() {
     const select = document.getElementById('citySelect');
     if (select) {
       select.addEventListener('change', (e) => {
-        this.selectedCity = e.target.value;
-        this.coords = null;
-        App.storage.set('city', this.selectedCity);
+        if (e.target.value === 'GPS_LOCATION') {
+          if (!this.coords) {
+            this.detectGPS();
+            return;
+          }
+          App.storage.set('use_gps', true);
+        } else {
+          this.selectedCity = e.target.value;
+          this.coords = null;
+          App.storage.set('use_gps', false);
+          App.storage.set('city', this.selectedCity);
+        }
         this.fetchPrayerTimes();
       });
     }
@@ -135,6 +198,67 @@ const PrayersManager = {
     if (testAdhanBtn) {
       testAdhanBtn.addEventListener('click', () => this.toggleAdhanSound());
     }
+
+    // Iqama Modal Bindings
+    const btnIqama = document.getElementById('btnIqamaSettings');
+    const modal = document.getElementById('iqamaModal');
+    const btnCloseModal = document.getElementById('btnCloseIqamaModal');
+    const btnSaveIqama = document.getElementById('btnSaveIqama');
+    const btnResetIqama = document.getElementById('btnResetIqama');
+
+    if (btnIqama && modal) {
+      btnIqama.addEventListener('click', () => this.openIqamaModal());
+    }
+    if (btnCloseModal && modal) {
+      btnCloseModal.addEventListener('click', () => this.closeIqamaModal());
+    }
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) this.closeIqamaModal();
+      });
+    }
+    if (btnSaveIqama) {
+      btnSaveIqama.addEventListener('click', () => this.saveIqamaSettings());
+    }
+    if (btnResetIqama) {
+      btnResetIqama.addEventListener('click', () => this.resetIqamaSettings());
+    }
+  },
+
+  openIqamaModal() {
+    const modal = document.getElementById('iqamaModal');
+    if (!modal) return;
+    document.getElementById('iqamaFajr').value = this.iqamaOffsets.Fajr || 25;
+    document.getElementById('iqamaDhuhr').value = this.iqamaOffsets.Dhuhr || 20;
+    document.getElementById('iqamaAsr').value = this.iqamaOffsets.Asr || 20;
+    document.getElementById('iqamaMaghrib').value = this.iqamaOffsets.Maghrib || 10;
+    document.getElementById('iqamaIsha').value = this.iqamaOffsets.Isha || 20;
+    modal.style.display = 'flex';
+  },
+
+  closeIqamaModal() {
+    const modal = document.getElementById('iqamaModal');
+    if (modal) modal.style.display = 'none';
+  },
+
+  saveIqamaSettings() {
+    this.iqamaOffsets.Fajr = Math.max(0, parseInt(document.getElementById('iqamaFajr').value) || 0);
+    this.iqamaOffsets.Dhuhr = Math.max(0, parseInt(document.getElementById('iqamaDhuhr').value) || 0);
+    this.iqamaOffsets.Asr = Math.max(0, parseInt(document.getElementById('iqamaAsr').value) || 0);
+    this.iqamaOffsets.Maghrib = Math.max(0, parseInt(document.getElementById('iqamaMaghrib').value) || 0);
+    this.iqamaOffsets.Isha = Math.max(0, parseInt(document.getElementById('iqamaIsha').value) || 0);
+
+    App.storage.set('iqama_offsets', this.iqamaOffsets);
+    App.showToast('تم حفظ إعدادات الإقامة بنجاح', 'success');
+    this.closeIqamaModal();
+    this.fetchPrayerTimes();
+  },
+
+  resetIqamaSettings() {
+    this.iqamaOffsets = { Fajr: 25, Dhuhr: 20, Asr: 20, Maghrib: 10, Isha: 20 };
+    App.storage.set('iqama_offsets', this.iqamaOffsets);
+    this.openIqamaModal();
+    App.showToast('تمت استعادة الإعدادات الافتراضية للإقامة', 'info');
   },
 
   detectGPS() {
@@ -145,12 +269,15 @@ const PrayersManager = {
 
     App.showToast('جاري تحديد موقعك الجغرافي...', 'info');
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
+      async (pos) => {
         this.coords = {
           lat: pos.coords.latitude,
           lng: pos.coords.longitude
         };
         App.showToast('تم تحديد الموقع بنجاح! جاري جلب المواقيت...', 'success');
+        App.storage.set('use_gps', true);
+        App.storage.set('coords', this.coords);
+        await this.updateLocationNameFromCoords(this.coords.lat, this.coords.lng);
         this.fetchPrayerTimes();
       },
       (err) => {
@@ -228,8 +355,21 @@ const PrayersManager = {
     let [h, m] = cleanTime.split(':').map(Number);
     const period = h >= 12 ? 'مساءً' : 'صباحًا';
     h = h % 12 || 12;
-    const formattedH = String(h).padStart(2, '0');
-    return { time: `${formattedH}:${m}`, period };
+    const formattedH = String(h);
+    const formattedM = String(m).padStart(2, '0');
+    return { time: `${formattedH}:${formattedM}`, period };
+  },
+
+  calculateIqamaTime(time24, offsetMinutes) {
+    if (!time24 || offsetMinutes === undefined) return null;
+    const cleanTime = time24.split(' ')[0];
+    let [h, m] = cleanTime.split(':').map(Number);
+    let totalM = h * 60 + m + offsetMinutes;
+    totalM = (totalM + 1440) % 1440;
+    let iqH = Math.floor(totalM / 60);
+    let iqM = totalM % 60;
+    const time24Str = `${String(iqH).padStart(2, '0')}:${String(iqM).padStart(2, '0')}`;
+    return this.formatTime12(time24Str);
   },
 
   renderPrayerCards(timings) {
@@ -245,6 +385,19 @@ const PrayersManager = {
       const nameAr = this.prayerNamesAr[key];
       const icon = this.prayerIcons[key];
 
+      let iqamaHTML = '';
+      if (this.iqamaOffsets[key] !== undefined) {
+        const iqamaFormatted = this.calculateIqamaTime(rawTime, this.iqamaOffsets[key]);
+        if (iqamaFormatted) {
+          iqamaHTML = `
+            <div class="pray-iqama-info">
+              <span>الإقامة: <strong>${iqamaFormatted.time} ${iqamaFormatted.period}</strong></span>
+              <span class="iqama-badge">+${this.iqamaOffsets[key]} د</span>
+            </div>
+          `;
+        }
+      }
+
       const card = document.createElement('div');
       card.className = `pray-card pray-${key.toLowerCase()}`;
       card.dataset.prayer = key;
@@ -259,6 +412,7 @@ const PrayersManager = {
           <span>${time}</span>
           <span class="pray-period">${period}</span>
         </div>
+        ${iqamaHTML}
       `;
 
       grid.appendChild(card);

@@ -129,6 +129,11 @@
         </div>
 
         <div class="notification-toggle-group">
+          <button id="btnIqamaSettings" class="btn btn-secondary" title="ضبط الفرق الزمني بين الأذان والإقامة">
+            <i class="fa-solid fa-sliders"></i>
+            <span>وقت الإقامة</span>
+          </button>
+
           <button id="btnNotifyPermission" class="btn btn-primary">
             <i class="fa-solid fa-bell"></i>
             <span>تفعيل الإشعارات</span>
@@ -193,6 +198,62 @@
       </section>
 
     </main>
+  </div>
+
+  <!-- Modal for Iqama Settings -->
+  <div id="iqamaModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-sliders" style="color:var(--gold-light);"></i> إعدادات الوقت بين الأذان والإقامة</h3>
+        <button class="modal-close-btn" id="btnCloseIqamaModal" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">
+          حدد الفرق الزمني بالدقائق بين رفع الأذان وإقامة الصلاة لكل صلاة:
+        </p>
+        <div class="iqama-inputs-grid">
+          <div class="iqama-input-group">
+            <label for="iqamaFajr"><i class="fa-solid fa-cloud-moon"></i> الفجر</label>
+            <div class="input-with-suffix">
+              <input type="number" id="iqamaFajr" class="form-control" min="0" max="60" value="25">
+              <span>دقيقة</span>
+            </div>
+          </div>
+          <div class="iqama-input-group">
+            <label for="iqamaDhuhr"><i class="fa-solid fa-sun-plant-wilt"></i> الظهر</label>
+            <div class="input-with-suffix">
+              <input type="number" id="iqamaDhuhr" class="form-control" min="0" max="60" value="20">
+              <span>دقيقة</span>
+            </div>
+          </div>
+          <div class="iqama-input-group">
+            <label for="iqamaAsr"><i class="fa-solid fa-cloud-sun"></i> العصر</label>
+            <div class="input-with-suffix">
+              <input type="number" id="iqamaAsr" class="form-control" min="0" max="60" value="20">
+              <span>دقيقة</span>
+            </div>
+          </div>
+          <div class="iqama-input-group">
+            <label for="iqamaMaghrib"><i class="fa-solid fa-sun-arrow-down"></i> المغرب</label>
+            <div class="input-with-suffix">
+              <input type="number" id="iqamaMaghrib" class="form-control" min="0" max="60" value="10">
+              <span>دقيقة</span>
+            </div>
+          </div>
+          <div class="iqama-input-group">
+            <label for="iqamaIsha"><i class="fa-solid fa-moon"></i> العشاء</label>
+            <div class="input-with-suffix">
+              <input type="number" id="iqamaIsha" class="form-control" min="0" max="60" value="20">
+              <span>دقيقة</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnResetIqama" class="btn btn-secondary"><i class="fa-solid fa-rotate-left"></i> افتراضي</button>
+        <button id="btnSaveIqama" class="btn btn-primary"><i class="fa-solid fa-check"></i> حفظ الإعدادات</button>
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->
