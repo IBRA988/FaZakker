@@ -19,7 +19,10 @@ const App = {
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('SW Registered:', reg.scope))
+          .then(reg => {
+            console.log('SW Registered:', reg.scope);
+            reg.update();
+          })
           .catch(err => console.log('SW Error:', err));
       });
     }
@@ -82,25 +85,9 @@ const App = {
     }
   },
 
-  // Clean Router & Professional URL Navigation
+  // Clean Router & Navigation
   initCleanRouter() {
     this.updateActiveNavState();
-
-    // Intercept navigation links for smooth instant transitions if target exists
-    document.querySelectorAll('a[href]').forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && !href.startsWith('#') && !href.startsWith('http')) {
-        link.addEventListener('click', (e) => {
-          // Normalize link click for modern SPA feel
-          const targetUrl = new URL(href, window.location.href);
-          if (targetUrl.origin === window.location.origin) {
-            // Keep normal navigation with history state
-            window.history.replaceState({ path: href }, '', href);
-            this.updateActiveNavState();
-          }
-        });
-      }
-    });
   },
 
   updateActiveNavState() {
@@ -208,7 +195,7 @@ const App = {
     get(key, defaultValue = null) {
       try {
         const val = localStorage.getItem(`fazakker_${key}`);
-        return val ? JSON.parse(val) : defaultValue;
+        return val !== null ? JSON.parse(val) : defaultValue;
       } catch (e) {
         return defaultValue;
       }
